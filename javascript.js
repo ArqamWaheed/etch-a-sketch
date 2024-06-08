@@ -2,13 +2,16 @@ const container = document.querySelector(".container");
 const reset = document.querySelector("#reset");
 const dimensions = document.querySelector("#dimensions");
 const eraser = document.querySelector("#eraser");
+const selection = document.querySelector("select");
 eraser.style.backgroundColor = "red";
+
 
 let grids = 16; // 16 x 16 grid by default
 let boolean = true; // to enable/disable sketching
 let eraserbool = false; 
+let sketchingcolor = "black";
+let holder = sketchingcolor;
 generateGrid()
-
 
 function generateGrid() { // Creates the grid and adds the sketching functionality
     let size = 900/grids;
@@ -18,12 +21,19 @@ function generateGrid() { // Creates the grid and adds the sketching functionali
         container.appendChild(div);
     }
     const div = document.querySelectorAll(".container div")
-    div.forEach((element) => {
+    div.forEach((element) => { // Sketching functionality
         element.addEventListener("mouseover", (event) => {
-            if (boolean == true && eraserbool == false) event.target.style.backgroundColor = "blue";
-            else if (eraserbool == true) event.target.style.backgroundColor = "white";
+            if (holder == "rainbow") {
+                sketchingcolor = getRandomRGB();
+            }
+            if (boolean == true && eraserbool == false) event.target.style.backgroundColor = sketchingcolor;
+            else if (eraserbool == true && boolean == true) event.target.style.backgroundColor = "white";
         })
     })
+}
+
+function getRandomRGB() { // Generates a random RGB value
+    return `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
 }
 
 document.querySelector("body").addEventListener("keypress", (event) => { // Enables/disables sketching
@@ -37,12 +47,17 @@ reset.addEventListener("click", () => { // Resets the grid.
     })
 })
 
-eraser.addEventListener("click", () => {
+eraser.addEventListener("click", () => { // toggles eraser
     eraserbool = !eraserbool;
     if (eraserbool == true) eraser.style.backgroundColor = "green";
     else {
         eraser.style.backgroundColor = "red";
     }
+})
+
+selection.addEventListener("change", () => { // Determines color of sketching
+    sketchingcolor = selection.value;
+    holder = sketchingcolor;
 })
 
 dimensions.addEventListener("click", () => { // Sets the grid dimensions.
@@ -57,3 +72,4 @@ dimensions.addEventListener("click", () => { // Sets the grid dimensions.
     })
     generateGrid()
 })
+

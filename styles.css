@@ -22,9 +22,15 @@
     align-items: center;
 }
 
-button {
+button,
+select {
     height: 50px;
     width: 200px;
+}
+
+select {
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .container {
@@ -35,6 +41,4 @@ button {
     flex-wrap: wrap;
     outline: 5px solid black;
 }
-
-
 
