@@ -1,9 +1,12 @@
 const container = document.querySelector(".container");
 const reset = document.querySelector("#reset");
 const dimensions = document.querySelector("#dimensions");
+const eraser = document.querySelector("#eraser");
+eraser.style.backgroundColor = "red";
 
 let grids = 16; // 16 x 16 grid by default
 let boolean = true; // to enable/disable sketching
+let eraserbool = false; 
 generateGrid()
 
 
@@ -17,14 +20,14 @@ function generateGrid() { // Creates the grid and adds the sketching functionali
     const div = document.querySelectorAll(".container div")
     div.forEach((element) => {
         element.addEventListener("mouseover", (event) => {
-            if (boolean == true) event.target.style.backgroundColor = "blue";
+            if (boolean == true && eraserbool == false) event.target.style.backgroundColor = "blue";
+            else if (eraserbool == true) event.target.style.backgroundColor = "white";
         })
     })
 }
 
 document.querySelector("body").addEventListener("keypress", (event) => { // Enables/disables sketching
-    if (event.key.toLowerCase() == "f" && boolean == true) boolean = false;
-    else if (event.key.toLowerCase() == "f" && boolean == false) boolean = true;
+    if (event.key.toLowerCase() == "f") boolean = !boolean;
 })
 
 reset.addEventListener("click", () => { // Resets the grid.
@@ -32,6 +35,14 @@ reset.addEventListener("click", () => { // Resets the grid.
     div.forEach((element) => {
         element.style.backgroundColor = "white";
     })
+})
+
+eraser.addEventListener("click", () => {
+    eraserbool = !eraserbool;
+    if (eraserbool == true) eraser.style.backgroundColor = "green";
+    else {
+        eraser.style.backgroundColor = "red";
+    }
 })
 
 dimensions.addEventListener("click", () => { // Sets the grid dimensions.
