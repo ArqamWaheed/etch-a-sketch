@@ -3,6 +3,7 @@ const reset = document.querySelector("#reset");
 const dimensions = document.querySelector("#dimensions");
 
 let grids = 16; // 16 x 16 grid by default
+let boolean = true; // to enable/disable sketching
 generateGrid()
 
 
@@ -16,10 +17,15 @@ function generateGrid() { // Creates the grid and adds the sketching functionali
     const div = document.querySelectorAll(".container div")
     div.forEach((element) => {
         element.addEventListener("mouseover", (event) => {
-            event.target.style.backgroundColor = "blue";
+            if (boolean == true) event.target.style.backgroundColor = "blue";
         })
     })
 }
+
+document.querySelector("body").addEventListener("keypress", (event) => { // Enables/disables sketching
+    if (event.key.toLowerCase() == "f" && boolean == true) boolean = false;
+    else if (event.key.toLowerCase() == "f" && boolean == false) boolean = true;
+})
 
 reset.addEventListener("click", () => { // Resets the grid.
     const div = document.querySelectorAll(".container div")
