@@ -6,10 +6,25 @@
 
 .main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
+}
+
+.config {
+    width: 900px;
+    height: 100px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+button {
+    height: 50px;
+    width: 200px;
 }
 
 .container {
@@ -20,3 +35,6 @@
     flex-wrap: wrap;
     outline: 5px solid black;
 }
+
+
+
